@@ -55,7 +55,7 @@ function f(x,y){
     }
 }
 */
-
+/*
 var arr = [
     { name: 'a', surname: 'b'},
     { name: 'c', surname: 'd'},
@@ -75,4 +75,34 @@ var f = (function () {
     }
 })();
 
-console.log(f("a", arr));
+console.log(f("a", arr)); */
+
+function $ (selector) {
+    function id (idx) { return document.getElementById (idx)}
+    function tag (tagel) {return document.getElementsByTagName (tagel)}
+    
+    var methods = {
+        show: function (a) { a.style.display = "block";},
+        hide: function (a) { a.style.display = "none";},
+        color: function (a) { a.style.color = this;},
+        size: function (a) { a.style.fontSize = this;}
+    }
+    
+    var output = [];
+    if (selector [0] == "#") {
+        output.push(id(selector.slice(1)));
+                    }else{
+                    output = output.concat([].slice.call(tag(selector)));
+                    }
+    for (var meth in methods) {
+        (function (n, m) {
+            output[n] = function(x) {
+                output.map(m,x);
+                return output;
+            }
+        }(meth, methods[meth]));
+    }
+    return output;
+}
+$("#post").color("red");
+$("span").color("green").size("50px");
